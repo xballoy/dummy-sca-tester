@@ -1,0 +1,13 @@
+{
+  "name": "@sca-fixture/dev-only",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vulnerable packages confined to devDependencies",
+  "license": "MIT",
+  "main": "index.js",
+  "devDependencies": {
+    "marked": "0.3.6",
+    "serialize-javascript": "2.1.2",
+    "shell-quote": "1.7.2"
+  }
+}

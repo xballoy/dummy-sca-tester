@@ -1,0 +1,16 @@
+{
+  "name": "@sca-fixture/npm-no-lockfile",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Same dependencies as npm-workspaces but expressed as caret ranges with no lockfile",
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "ejs": "^3.1.6",
+    "handlebars": "^4.7.6",
+    "lodash": "^4.17.15",
+    "minimist": "^1.2.0",
+    "tar": "^6.1.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@sca-fixture/licenses",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Copyleft, dual-licensed and unresolvable-license packages",
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "ffmpeg-static": "5.3.0",
+    "handsontable": "18.0.0",
+    "jszip": "3.10.1"
+  }
+}

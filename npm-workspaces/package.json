@@ -1,0 +1,13 @@
+{
+  "name": "@sca-fixture/npm-workspaces",
+  "version": "1.0.0",
+  "private": true,
+  "description": "npm workspaces root - tests monorepo project discovery",
+  "license": "MIT",
+  "workspaces": [
+    "packages/reachable",
+    "packages/unused",
+    "packages/dev-only",
+    "packages/licenses"
+  ]
+}

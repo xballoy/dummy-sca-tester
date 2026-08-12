@@ -1,0 +1,13 @@
+{
+  "name": "@sca-fixture/unused",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vulnerable packages declared but their vulnerable APIs are never reached",
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "0.21.0",
+    "handlebars": "4.7.6",
+    "tar": "6.1.0"
+  }
+}

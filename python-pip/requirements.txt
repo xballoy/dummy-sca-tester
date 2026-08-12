@@ -1,0 +1,10 @@
+Django==3.2.4
+PyYAML==5.3.1
+Jinja2==2.11.2
+urllib3==1.26.4
+requests==2.25.1
+
+PyQt5==5.15.11
+Unidecode==1.4.0
+psycopg2==2.9.12
+text-unidecode==1.3
