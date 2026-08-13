@@ -9,8 +9,11 @@ The point is not only *which CVEs* a tool finds, but *which code paths it takes*
 Tools diverge far more on project discovery, dependency-scope classification, and version-range
 resolution than on advisory data. Each directory below isolates one of those axes.
 
-No expected-findings list is committed on purpose — comparing tools against a pre-written answer
-key biases the reading. Import the repo into each tool and record what it reports.
+[`EXPECTED-FINDINGS.md`](EXPECTED-FINDINGS.md) records what this fixture actually contains,
+generated from `osv-scanner` and `trivy` plus registry license metadata. Treat it as a reference
+point rather than a pass/fail key: a tool reporting something different may simply scope dev
+dependencies, resolve ranges, or walk parent POMs differently, and those differences are the
+thing being measured.
 
 ## What each directory tests
 
