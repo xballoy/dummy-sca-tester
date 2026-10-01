@@ -23,11 +23,12 @@ Generated 2026-08-13.
 | `python-pip/requirements-dev.txt` | 7 | 57 |
 | `python-pip/requirements.txt` | 6 | 53 |
 | `go-app/go.mod` | 5 | 8 |
+| `go-superseded/go.mod` | 4 | 13 |
 | `docker/` image (`alpine 3.12.1` OS layer) | 8 | 48 |
 | `docker/` image (Node's bundled npm) | 20 | 58 |
 | `npm-no-lockfile/` | — | not scannable without a lockfile |
 
-Roughly 330 advisories across the source manifests, plus 106 in the container image.
+Roughly 345 advisories across the source manifests, plus 106 in the container image.
 
 `npm-no-lockfile/` produced **zero** findings under `osv-scanner`, which refuses to scan a bare
 `package.json`. Whether a tool reports nothing here, resolves the caret ranges to latest (clean),
@@ -110,6 +111,30 @@ between the two as tool disagreement.
 
 Go yields far fewer advisories than the other ecosystems because the Go vulnerability database is
 curated to symbol-level reachability rather than listing every version-range match.
+
+### `go-superseded/go.mod`
+
+Generated 2026-10-01 with `osv-scanner` 2.6.0.
+
+| Package | Version | Advisory | Max severity | Fixed in same package | Fixed elsewhere |
+|---|---|---|---|---|---|
+| github.com/docker/docker | 27.1.1+incompatible | CVE-2026-42306 `docker cp` race | High 7.2 | — | moby/moby/v2 2.0.0-beta.14 |
+| github.com/docker/docker | 27.1.1+incompatible | CVE-2026-41567 archive PUT runs container binary | High 7.2 | — | moby/moby/v2 2.0.0-beta.14 |
+| github.com/docker/docker | 27.1.1+incompatible | CVE-2026-33997 plugin privilege off-by-one | Medium 6.8 | — | moby/moby/v2 2.0.0-beta.8 |
+| github.com/docker/docker | 27.1.1+incompatible | CVE-2026-41568 `docker cp` race | Medium 6.1 | — | moby/moby/v2 2.0.0-beta.14 |
+| github.com/docker/docker | 27.1.1+incompatible | CVE-2026-34040 AuthZ bypass on oversized body | unscored | — | moby/moby/v2 2.0.0-beta.8 |
+| github.com/docker/docker | 27.1.1+incompatible | CVE-2025-54410 firewalld reload isolation | Low 3.3 | 28.0.0 | — |
+| go.opentelemetry.io/otel/sdk † | 1.21.0 | 4 advisories | High 7.3 | 1.33.0 – 1.45.0 | — |
+| go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp † | 1.21.0 | 2 advisories | Medium 5.3 | 1.43.0 – 1.45.0 | — |
+| golang.org/x/sys † | 0.21.0 | CVE-2026-39824 | unscored | 0.44.0 | — |
+
+† transitive. The indirect requirements are pinned to the versions moby `v27.1.1` vendored; that
+is why the OpenTelemetry and `x/sys` advisories appear. `CVE-2026-81870` is filed against both
+OpenTelemetry modules, which is why the summary counts 13 advisories rather than 12.
+
+The `docker/docker` rows are the case under test. OSV places the fixed range on the
+`github.com/moby/moby/v2` entry of the advisory's `affected` list, so a tool that only reads the
+installed package's entry reports "no fix" for five of six groups.
 
 ### `docker/` container image
 

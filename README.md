@@ -29,6 +29,7 @@ thing being measured.
 | `python-poetry/` | `poetry.lock` parsing and Poetry dependency groups |
 | `java-maven/` | Maven `compile` vs `test` scope, plus AGPL/GPL artifacts |
 | `go-app/` | Go module graph, direct vs indirect requirements |
+| `go-superseded/` | Fixes that exist only under a renamed successor module |
 | `docker/` | Container scanning: OS-level CVEs from an EOL base image |
 
 ## Axis details
@@ -51,6 +52,24 @@ lowest-satisfying version (vulnerable) or the latest (clean) is the thing being 
 Vulnerable packages appear in `devDependencies` (`packages/dev-only/`),
 `requirements-dev.txt` (`python-pip/`), the Poetry `dev` group (`python-poetry/`), and Maven
 `<scope>test</scope>` (`java-maven/`). Tools differ on whether these are reported by default.
+
+### Fixes that live in a successor package
+
+`go-superseded/` depends on `github.com/docker/docker v27.1.1+incompatible`. Moby moved its code to
+`github.com/moby/moby/v2`, and the last `docker/docker` release (`v28.5.2+incompatible`,
+2025-11-05) predates most advisories now filed against it. For 5 of its 6 advisory groups,
+including CVE-2026-34040, OSV lists no fixed version for `github.com/docker/docker`. The only fix
+is a `github.com/moby/moby/v2` release. No upgrade can close them; only a migration can.
+
+The thing being measured is how a tool phrases that. "No fix available" is wrong. "Upgrade to
+2.0.0-beta.8" is wrong too, because that version does not exist for the installed module. A tool
+that gets this right says the fix needs a move to the successor module. It should still offer a
+plain upgrade (to 28.0.0) for CVE-2025-54410, the one group with a fix in the same package.
+
+`go-app/` has the opposite trap. `github.com/dgrijalva/jwt-go` is superseded by
+`github.com/golang-jwt/jwt`, but its advisory names a fix in `github.com/dgrijalva/jwt-go/v4`
+instead. A tool that treats any module named in the advisory as the successor will recommend
+the wrong one.
 
 ### Licenses
 
